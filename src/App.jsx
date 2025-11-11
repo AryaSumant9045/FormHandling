@@ -10,6 +10,7 @@ function App() {
     watch,
     formState: { errors ,isSubmitting},
   } = useForm();
+
  const Delay = (d)=>{
   return new Promise((resolve, reject)=>{
     setTimeout(() => {
@@ -19,6 +20,7 @@ function App() {
  }
   const onSubmit = async(data) => {
     await Delay(2) //simulating network delay
+    
     console.log(data)
     // if(data.username !== "sumant"){
     //   setError("myform",{message:"Credientials are invalid!"})
