@@ -19,8 +19,8 @@ function App() {
   })
  }
   const onSubmit = async(data) => {
-    await Delay(2) //simulating network delay
-    
+    // await Delay(2) //simulating network delay
+    let r = await 
     console.log(data)
     // if(data.username !== "sumant"){
     //   setError("myform",{message:"Credientials are invalid!"})
