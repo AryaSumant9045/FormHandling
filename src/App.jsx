@@ -8,21 +8,27 @@ function App() {
     handleSubmit,
     setError,
     watch,
-    formState: { errors ,isSubmitting},
+    formState: { errors, isSubmitting },
   } = useForm();
 
- const Delay = (d)=>{
-  return new Promise((resolve, reject)=>{
-    setTimeout(() => {
-      resolve()
-    }, d*1000);
-  })
- }
-  const onSubmit = async(data) => {
+  const Delay = (d) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, d * 1000);
+    });
+  };
+  const onSubmit = async (data) => {
     // await Delay(2) //simulating network delay
-    let r = await fetch("http://localhost:3000/",{method:"POST", body: JSON.stringify(data)})
-    let res = await r.text()
-    console.log(data, res)
+    let r = await fetch("http://localhost:3000/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // 👈 ye jaruri hai
+      },
+      body: JSON.stringify(data),
+    });
+    let res = await r.text();
+    console.log(data, res);
     // if(data.username !== "sumant"){
     //   setError("myform",{message:"Credientials are invalid!"})
     // }
@@ -33,7 +39,7 @@ function App() {
 
   return (
     <>
-    {isSubmitting&&<div>Loading...</div>}
+      {isSubmitting && <div>Loading...</div>}
       <div className="container">
         <form action="" form onSubmit={handleSubmit(onSubmit)}>
           <input
@@ -51,7 +57,9 @@ function App() {
           <br />
           <input
             placeholder="password"
-            {...register("password",{minLength: { value: 7, message: "min length of password is 7" }})}
+            {...register("password", {
+              minLength: { value: 7, message: "min length of password is 7" },
+            })}
             type="password"
           />
           {errors.password && (
@@ -59,9 +67,7 @@ function App() {
           )}
           <br />
           <input disabled={isSubmitting} type="submit" value="submit" />
-          {errors.myform && (
-            <div className="red">{errors.myform.message}</div>
-          )}
+          {errors.myform && <div className="red">{errors.myform.message}</div>}
           {errors.blocked && (
             <div className="red">{errors.blocked.message}</div>
           )}
